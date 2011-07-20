@@ -1,10 +1,5 @@
 package net.gamerservices.npcx;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.bukkit.Location;
-
 public class myMerchant_entry {
 
 	public int merchantid;

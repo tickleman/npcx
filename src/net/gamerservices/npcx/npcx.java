@@ -6,17 +6,11 @@ import com.iConomy.*;
 
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.BasicHumanNpcList;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent;
 import net.gamerservices.npclibfork.NpcSpawner;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
 
 import org.bukkit.plugin.PluginManager;
-import java.util.HashMap;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.BlockIterator;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
@@ -25,35 +19,21 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.event.*;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.CreatureType;
 
 import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Properties;
 import java.util.Random;
 import java.util.Timer;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import org.bukkit.event.Event.Type;
 import java.util.logging.Logger;
 import org.bukkit.event.Event.Priority;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.*;
 public class npcx extends JavaPlugin {
 
@@ -67,11 +47,11 @@ public class npcx extends JavaPlugin {
 	
 	public myUniverse universe;
 	int tickx = 7200000;
-	// iconomy
+	// iConomy
 	iConomy iConomy = null;
     boolean useiConomy;
     private static Server Server = null;
-    // end iconomy
+    // end iConomy
     
     // permissions mod
     
@@ -360,7 +340,6 @@ public class npcx extends JavaPlugin {
 					if (!spawngroup.active)
 					{
 						//System.out.println("npcx : found inactive spawngroup ("+ spawngroup.id +") with :[" + spawngroup.npcs.size() + "]");
-						int count = 0;
 						Random generator = new Random();
 						if (spawngroup.npcs != null)
 						{
@@ -577,14 +556,14 @@ public class npcx extends JavaPlugin {
 				{
 				
 					//System.out.println("npcx : reestablishing player");
-					String list = "";
+					//String list = "";
 					try
 					{
 						for (World w : getServer().getWorlds())
 						{
 							for (Player p : w.getPlayers())
 							{
-								list += p.getName() + ":" + p.getEntityId() + ",";
+								//list += p.getName() + ":" + p.getEntityId() + ",";
 								if (player.name.equals(p.getName()))
 								{
 									player.player = p;
@@ -638,7 +617,7 @@ public class npcx extends JavaPlugin {
 		 try 
 		 {
 		 System.out.println("npcx : registering monitored events");
-		 this.Server = getServer();
+		 npcx.Server = getServer();
 		 PluginManager pm = getServer().getPluginManager();
 
          mEntityListener = new npcxEListener(this);
@@ -767,8 +746,8 @@ public class npcx extends JavaPlugin {
 					}
 					if (subCommand.equals("research"))
 		            {
-						int playerx = this.universe.getZoneCoord(player.getLocation().getX());
-						int playerz = this.universe.getZoneCoord(player.getLocation().getZ());
+						//int playerx = this.universe.getZoneCoord(player.getLocation().getX());
+						//int playerz = this.universe.getZoneCoord(player.getLocation().getZ());
 						if (args.length < 2) {
 	            			player.sendMessage("Insufficient arguments /civ research list");
 	            			player.sendMessage("Insufficient arguments /civ research start researchname");
@@ -999,7 +978,7 @@ public class npcx extends JavaPlugin {
 						if (cost <= mp.getPlayerBalance(player))
 						{
 							
-							Chunk c = player.getLocation().getWorld().getChunkAt(player.getLocation());
+							//Chunk c = player.getLocation().getWorld().getChunkAt(player.getLocation());
 							
 							myZone z = this.universe.getZoneFromChunkAndLoc(this.universe.getZoneCoord(player.getLocation().getX()),this.universe.getZoneCoord(player.getLocation().getZ()), player.getLocation().getWorld());
 							if (z != null)
@@ -1153,7 +1132,7 @@ public class npcx extends JavaPlugin {
         	//debug: logger.log(Level.WARNING, "npcx : " + command.getName().toLowerCase() + "(" + subCommand + ")");
 
             
-            Location l = player.getLocation();
+            //Location l = player.getLocation();
             
             if (subCommand.equals("debug"))
             {
@@ -1393,7 +1372,7 @@ public class npcx extends JavaPlugin {
         	            		stmtNPC.setString(1,args[3]);
         	            		stmtNPC.executeQuery();
                     			ResultSet rsNPC = stmtNPC.getResultSet ();
-                     		    int count = 0;
+                     		    //int count = 0;
                      		    while (rsNPC.next ())
                      		    {
                      		       Location loc = new Location(sg.world,0,0,0,0,0);
@@ -1416,7 +1395,7 @@ public class npcx extends JavaPlugin {
                      		      sg.npcs.put(sg.id+"-"+npc.id, npc);
                      		     universe.npcs.put(sg.id+"-"+npc.id, npc);
                      		       
-                     		       ++count;
+                     		       //++count;
                      		    }
                      		    rsNPC.close();
                      		    stmtNPC.close();
@@ -1431,7 +1410,7 @@ public class npcx extends JavaPlugin {
         	            }
         	            
         	            
-        	            mySpawngroup sg = new mySpawngroup(this);
+        	            //mySpawngroup sg = new mySpawngroup(this);
             			
             			// close db
         	            s2.close();
@@ -1695,7 +1674,7 @@ public class npcx extends JavaPlugin {
         	            }
         	            
         	            
-        	            mySpawngroup sg = new mySpawngroup(this);
+        	            //mySpawngroup sg = new mySpawngroup(this);
             			
             			// close statement
         	            s2.close();
@@ -1959,8 +1938,8 @@ public class npcx extends JavaPlugin {
               		   int count = 0;
               		   while (rspginspect.next ())
               		   {
-              			   	   int idVal = rspginspect.getInt ("id");
-              			       String nameVal = rspginspect.getString ("name");
+              			   	   //int idVal = rspginspect.getInt ("id");
+              			       //String nameVal = rspginspect.getString ("name");
      	       		       
               			   	   int s = rspginspect.getInt ("s");
               				   int pgid = rspginspect.getInt ("pathgroup");
@@ -2971,7 +2950,7 @@ public class npcx extends JavaPlugin {
 		try 
 		{
 			// if we have permissions installed check that
-			if ((this).Permissions.has(player, "npcx.fulladmin")) {
+			if (npcx.Permissions.has(player, "npcx.fulladmin")) {
 			      return true;
 			}
 		}catch (NoClassDefFoundError e )
@@ -2997,11 +2976,11 @@ public class npcx extends JavaPlugin {
 	private void setupPermissions() {
 	      Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
 
-	      if (this.Permissions == null) {
+	      if (npcx.Permissions == null) {
 	          if (test != null) {
-	              this.Permissions = ((Permissions)test).getHandler();
+	              npcx.Permissions = ((Permissions)test).getHandler();
 	          } else {
-	              this.logger.info("Permission system not detected, defaulting to OP");
+	              npcx.logger.info("Permission system not detected, defaulting to OP");
 	          }
 	      }
 	  }

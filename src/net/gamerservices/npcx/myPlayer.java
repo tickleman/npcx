@@ -7,7 +7,6 @@ import java.sql.Statement;
 import net.gamerservices.npclibfork.BasicHumanNpc;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.iConomy.*;
@@ -130,10 +129,9 @@ public class myPlayer {
 		
 		stmt.executeUpdate();
 		ResultSet keyset = stmt.getGeneratedKeys();
-		int key = 0;
 		if ( keyset.next() ) {
 		    // Retrieve the auto generated key(s).
-		    key = keyset.getInt(1);
+		    keyset.getInt(1);
 		    
 		}
 		stmt.close();

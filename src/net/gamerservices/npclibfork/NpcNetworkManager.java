@@ -32,9 +32,11 @@ public class NpcNetworkManager extends NetworkManager {
     public void queue(Packet paramPacket) {
     }
 
+    /*
     @Override
     public void a(String paramString, Object[] paramArrayOfObject) {
     }
+    */
 
     @Override
     public void a() {

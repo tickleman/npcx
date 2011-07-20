@@ -1,8 +1,4 @@
 package net.gamerservices.npcx;
-import java.awt.PageAttributes.ColorType;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.gamerservices.npclibfork.BasicHumanNpc;
-import net.gamerservices.npclibfork.CHumanNpc;
 import net.gamerservices.npclibfork.NpcSpawner;
 
 import org.bukkit.ChatColor;
@@ -22,8 +17,6 @@ import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import com.iConomy.*;
 
 public class myNPC {
 	public npcx parent;
@@ -60,7 +53,6 @@ public class myNPC {
 	
 	public void onPlayerAggroChange(myPlayer myplayer)
 	{
-		int count = 0;
 		
 		// do i already ahve aggro?
 		for (myTriggerword tw : triggerwords.values())
@@ -70,7 +62,6 @@ public class myNPC {
 				{
 					String send = variablise(tw.response,myplayer.player);
 					say(myplayer, send);
-					count++;
 					return;
 				}
 				
@@ -468,7 +459,6 @@ public class myNPC {
 	{
 		// TODO Auto-generated method stub
 		//myplayer.player.sendMessage("Parsing:" + message + ":" + Integer.toString(this.triggerwords.size()));
-		String message2=message+" ";
 		String[] aMsg = message.split(" ");
 		int size = aMsg.length;
 		
@@ -720,7 +710,7 @@ public class myNPC {
 				
 				try
 				{
-				int a = Integer.parseInt(aMsg[2]);
+					Integer.parseInt(aMsg[2]);
 				} catch (NumberFormatException e)
 				{
 					say(player,"That is not a valid amount.");
@@ -873,6 +863,7 @@ public class myNPC {
 			
 	}
 
+	/*
 	private ItemStack sellNolimitMerchantItem(int itemid,int amount) {
 		// TODO Auto-generated method stub
 		// find item
@@ -909,6 +900,7 @@ public class myNPC {
 		
 		return null;
 	}
+	*/
 
 	private ItemStack sellMerchantItem(int itemid,int amount) {
 		// TODO Auto-generated method stub
@@ -1004,6 +996,7 @@ public class myNPC {
 		return amount;
 	}
 
+	/*
 	private int getMerchantPriceSellAt(int typeId) {
 		// TODO Auto-generated method stub
 		int amount = 0;
@@ -1023,6 +1016,7 @@ public class myNPC {
 		}
 		return amount;
 	}
+	*/
 
 	private int getMerchantAmount(int itemid) {
 		// TODO Auto-generated method stub
@@ -1072,7 +1066,7 @@ public class myNPC {
  				Matcher m = p.matcher(command);
  				if (m.matches())
  				{
- 					response = response.replaceAll(p.quote(command),ChatColor.LIGHT_PURPLE + command + ChatColor.WHITE);
+ 					response = response.replaceAll(Pattern.quote(command),ChatColor.LIGHT_PURPLE + command + ChatColor.WHITE);
  				}
  			}
 		}
@@ -1117,6 +1111,7 @@ public class myNPC {
 		
 	}
 
+	/*
 	private void updateHints(int parseInt, int each) {
 		// TODO Auto-generated method stub
 		
@@ -1138,6 +1133,7 @@ public class myNPC {
 			h.age = 0;
 			this.hints.add(h);
 	}
+	*/
 
 	public BasicHumanNpc Spawn(String id2, String name2,
 			World world, double x, double y, double z, Double yaw, Double pitch) {
@@ -1284,7 +1280,7 @@ public class myNPC {
 				//myplayer.player.sendMessage("Test:" + word + ":"+ tw.word);
 				if (tw.word.toLowerCase().contains("event_close"))
 				{
-					String send = variablise(tw.response,p);
+					variablise(tw.response,p);
 					
 					for (myPlayer player : this.parent.universe.players.values())
 					{
@@ -1329,7 +1325,7 @@ public class myNPC {
 			//myplayer.player.sendMessage("Test:" + word + ":"+ tw.word);
 			if (tw.word.toLowerCase().contains("event_bounce"))
 			{
-				String send = variablise(tw.response,p);
+				variablise(tw.response,p);
 				
 				for (myPlayer player : this.parent.universe.players.values())
 				{
@@ -1508,8 +1504,8 @@ public class myNPC {
 			int i = rn.nextInt() % n;
 			int randomNum =  (damage/2) + i;
 
-			Random rn2 = new Random();
-			int n2 = 1000 - 1 + 1;
+			//Random rn2 = new Random();
+			//int n2 = 1000 - 1 + 1;
 			int i2 = rn.nextInt() % n;
 			int randomNum2 =  1 + i2;
 			

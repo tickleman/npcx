@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import net.gamerservices.npclibfork.CHumanNpc;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -24,8 +22,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
-
-import com.iConomy.*;
 
 public class myUniverse {
 	npcx parent;
@@ -1381,7 +1377,6 @@ public class myUniverse {
 		// TODO Auto-generated method stub
 		try 
         {
-           int countfaction = 0;
 			// save factions
 			for (myPlayer_factionentry e : playerfactions.values())
 			{
@@ -1392,12 +1387,10 @@ public class myUniverse {
 				
 				stmt.executeUpdate();
 				ResultSet keyset = stmt.getGeneratedKeys();
-				int key = 0;
 				if ( keyset.next() ) {
 				    // Retrieve the auto generated key(s).
-				    key = keyset.getInt(1);
+				    keyset.getInt(1);
 				}
-				countfaction++;
 
 				stmt.close();
 			}
@@ -1453,10 +1446,8 @@ public class myUniverse {
 		s.executeQuery ("SELECT id, npcid, triggerword, reply, category FROM npc_triggerwords WHERE npcid =" + npcid );
 		
 		ResultSet rs = s.getResultSet ();
-			int count = 0;
 		   while (rs.next ())
 		   {
-			   count++;
 			   myTriggerword tw = new myTriggerword();
 			   tw.response = rs.getString ("reply");
 			   
@@ -1523,7 +1514,7 @@ public class myUniverse {
         	// load spawngroup into cache
             int idVal = rs1.getInt ("id");
             String nameVal = rs1.getString ("name");
-            String catVal = rs1.getString ("category");
+            //String catVal = rs1.getString ("category");
             
             
             // Create a new spawngroup
@@ -1635,7 +1626,6 @@ public class myUniverse {
             	Statement sFindEntries = conn.createStatement();
             	sFindEntries.executeQuery("SELECT * FROM loottable_entries WHERE loottable_id = " + loottable.id);
             	ResultSet rsEntries = sFindEntries.getResultSet ();
-            	int countentries = 0;
             	while (rsEntries.next ())
 	            {
             		
@@ -1647,7 +1637,6 @@ public class myUniverse {
             		
             		entry.parent = loottable;
             		
-            		countentries++;
             		loottable.loottable_entries.add(entry);
 	            }
             	rsEntries.close();
@@ -1697,7 +1686,6 @@ public class myUniverse {
             	Statement sFindEntries = conn.createStatement();
             	sFindEntries.executeQuery("SELECT * FROM pathgroup_entries WHERE pathgroup = " + pathgroup.id);
             	ResultSet rsEntries = sFindEntries.getResultSet ();
-            	int countentries = 0;
             	while (rsEntries.next ())
 	            {
             		
@@ -1709,7 +1697,6 @@ public class myUniverse {
             		entry.name = rsEntries.getString("name");
             		entry.pathgroupid = rsEntries.getInt("pathgroup");
             		
-            		countentries++;
             		pathgroup.pathgroupentries.add(entry);
 	            }
             	rsEntries.close();
@@ -2210,7 +2197,8 @@ public class myUniverse {
 			}
 		}
 		// Does not exist - create it!
-		myZone zn = createBlankZone(x,z,world);
+		/* myZone zn = */ createBlankZone(x,z,world);
+		// TODO should not return zn.ownername instead of "" ?
 		return "";
 	}
 	
@@ -2330,7 +2318,6 @@ public class myUniverse {
 		if (npc.faction != null)
 		{
 			
-			int myfactionid = npc.faction.id;
 			int targetfactionid = 0;
 			myNPC target = null;
 			for (myNPC n : this.npcs.values())
@@ -2415,13 +2402,13 @@ public class myUniverse {
 		
 		//System.out.println("***************************************");
 		//System.out.println(player.getName()+"("+player.getEntityId()+") was missing from the list:");
-		String playerlist = "";
+		//String playerlist = "";
 		for (myPlayer p : this.players.values())
 		{
 				if (p.player != null)
 				{
 					// Seek the player and mark it as dead
-					playerlist += p.name+"["+p.player.getName()+"("+p.player.getEntityId()+")], ";
+					//playerlist += p.name+"["+p.player.getName()+"("+p.player.getEntityId()+")], ";
 	
 					if (p.name.equals(player.getName()))
 					{
@@ -2525,10 +2512,9 @@ public class myUniverse {
 							
 							stmt.executeUpdate();
 							ResultSet keyset = stmt.getGeneratedKeys();
-							int key = 0;
 							if ( keyset.next() ) {
 							    // Retrieve the auto generated key(s).
-							    key = keyset.getInt(1);
+							    keyset.getInt(1);
 							}
 							player.getServer().broadcastMessage(ChatColor.YELLOW + " * " + ChatColor.LIGHT_PURPLE +  player.getName() + ChatColor.YELLOW+" has begun researching " +ChatColor.LIGHT_PURPLE+ f.name + ChatColor.LIGHT_PURPLE+" ("+f.time+" turns)");
 							player.sendMessage("Research started!");
@@ -2660,10 +2646,9 @@ public class myUniverse {
 	        ResultSet rs1 = s1.executeQuery();
 	        
 	        int countflag = 0;
-	        int status = 0;
 	        while (rs1.next ())
 	        {
-	        	status = Integer.parseInt(rs1.getString("value"));
+	        	Integer.parseInt(rs1.getString("value"));
 	        	countflag++;
 	        }
 

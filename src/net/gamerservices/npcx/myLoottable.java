@@ -3,8 +3,6 @@ package net.gamerservices.npcx;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.bukkit.entity.Monster;
-
 public class myLoottable {
 
 	public int id;

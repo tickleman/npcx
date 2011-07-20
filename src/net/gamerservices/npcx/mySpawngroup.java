@@ -2,7 +2,6 @@ package net.gamerservices.npcx;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 
 import net.gamerservices.npclibfork.NpcSpawner;

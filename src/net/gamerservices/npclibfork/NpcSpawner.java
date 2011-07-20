@@ -4,9 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import net.gamerservices.npcx.myNPC;
-import net.gamerservices.npcx.npcx;
 import net.minecraft.server.Entity;
-import net.minecraft.server.EntityTypes;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.MinecraftServer;
@@ -78,9 +76,16 @@ public class NpcSpawner {
             int n = MathHelper.floor(eh.locZ / 16.0D);
 
             ws.getChunkAt(m, n).a(eh);
+            
+            // TODO here eclipse says :
+            // TODO Type safety: The method add(Object) belongs to the raw type List. References to generic type list<E> should be parameterized
+            // TODO tickleman does not know what to do with this !
             ws.entityList.add(eh);
 
             //ws.b(eh);
+            // TODO here eclipse says :
+            // TODO Class is a raw type. References to generic type Class<T> should be parameterized
+            // TODO tickleman does not know what to do with this !
             Class params[] = new Class[1];
             params[0] = Entity.class;
 

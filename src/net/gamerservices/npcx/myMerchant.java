@@ -2,7 +2,6 @@ package net.gamerservices.npcx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class myMerchant {
 	public int id;

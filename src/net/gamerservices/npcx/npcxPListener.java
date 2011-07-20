@@ -1,30 +1,14 @@
 package net.gamerservices.npcx;
-import java.util.logging.Logger;
-
-import net.gamerservices.npclibfork.BasicHumanNpc;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent;
-import net.gamerservices.npclibfork.NpcSpawner;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.HumanEntity;
 
 public class npcxPListener extends PlayerListener {
 	
@@ -184,8 +168,8 @@ public class npcxPListener extends PlayerListener {
 									{
 										
 										
-										Location loc = event.getClickedBlock().getLocation();
-										Chunk chunk = loc.getWorld().getChunkAt(loc);
+										//Location loc = event.getClickedBlock().getLocation();
+										//Chunk chunk = loc.getWorld().getChunkAt(loc);
 										int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
 										int z = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
 										String owner = "";
@@ -233,8 +217,8 @@ public class npcxPListener extends PlayerListener {
 									{
 										
 										
-										Location loc = event.getClickedBlock().getLocation();
-										Chunk chunk = loc.getWorld().getChunkAt(loc);
+										//Location loc = event.getClickedBlock().getLocation();
+										//Chunk chunk = loc.getWorld().getChunkAt(loc);
 										int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
 										int zoneid = 0;
 										
@@ -300,8 +284,8 @@ public class npcxPListener extends PlayerListener {
 								{
 									
 									
-									Location loc = event.getClickedBlock().getLocation();
-									Chunk chunk = loc.getWorld().getChunkAt(loc);
+									//Location loc = event.getClickedBlock().getLocation();
+									//Chunk chunk = loc.getWorld().getChunkAt(loc);
 									int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
 									int z = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
 									String owner = "";

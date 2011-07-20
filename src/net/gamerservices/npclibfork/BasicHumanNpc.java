@@ -1,32 +1,18 @@
 package net.gamerservices.npclibfork;
 import net.gamerservices.npcx.*;
 
-
-import java.io.Console;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
-import net.minecraft.server.EntityLiving;
-
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Spider;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.util.BlockIterator;
-import org.bukkit.util.Vector;
 
 public class BasicHumanNpc extends BasicNpc {
 
@@ -48,7 +34,7 @@ public class BasicHumanNpc extends BasicNpc {
 	public Block lastloc;
 	public int stuck;
     public CHumanNpc mcEntity;
-    private static final Logger logger = Logger.getLogger("Minecraft");
+    //private static final Logger logger = Logger.getLogger("Minecraft");
     public myNPC parent;
 	private boolean dead = false;
     public BasicHumanNpc(myNPC parent,CHumanNpc entity, String uniqueId, String name, double spawnx, double spawny, double spawnz,float spawnyaw, float spawnpitch) {
@@ -735,6 +721,7 @@ public class BasicHumanNpc extends BasicNpc {
 		return true;
 	}
 
+	/*
 	private Location findPlatformDown(Location belowloc) {
 		// TODO Auto-generated method stub
 		int max = 200;
@@ -752,6 +739,7 @@ public class BasicHumanNpc extends BasicNpc {
 		Panic("findPlatformDown - Failed to find a better platform below");
 		return null;
 	}
+	*/
 
 	private void Debug(String string) {
 		// TODO Auto-generated method stub
