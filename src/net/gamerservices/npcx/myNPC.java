@@ -1221,7 +1221,10 @@ public class myNPC {
 					{
 						p.sendMessage("NPCID ("+tNPCID+"):SG ("+tGPID+"):F ("+tFID+"):PG ("+tPGID+"):L ("+tLTID+"):M ("+tMID+")");
 					}
-                    p.sendMessage("* You are now chatting to: " + ChatColor.YELLOW + name + ChatColor.WHITE + ". Right Click to cancel.");
+                    p.sendMessage(
+                    		this.parent.translate.tr("* You are now chatting to: {npcname}. Right Click to cancel.")
+                    		.replace("{npcname}", ChatColor.YELLOW + name + ChatColor.WHITE)
+                    	);
                     p.sendMessage("* Words in "+ChatColor.LIGHT_PURPLE+"[brackets]"+ChatColor.WHITE+" you should type! "+ChatColor.YELLOW+"Type a word to begin"+ChatColor.WHITE);
                     if (player.target != null && player.target.parent != null && player.target.parent.category != null)
                     {

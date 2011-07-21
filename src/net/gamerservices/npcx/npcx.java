@@ -4,6 +4,8 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 import org.bukkit.plugin.Plugin;
 import com.iConomy.*;
 
+import fr.crafter.tickleman.RealPlugin.RealTranslationFile;
+
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.BasicHumanNpcList;
 import net.gamerservices.npclibfork.NpcSpawner;
@@ -38,6 +40,7 @@ import java.sql.*;
 public class npcx extends JavaPlugin {
 
 	private static final Logger logger = Logger.getLogger("Minecraft");
+	public RealTranslationFile translate;
 	
 	private npcxEListener mEntityListener;
 	private npcxPListener mPlayerListener;
@@ -45,6 +48,7 @@ public class npcx extends JavaPlugin {
 	private npcxSListener mServerListener;
 	private npcxBListener mBlockListener;
 	
+	public final String language = "fr";
 	public myUniverse universe;
 	int tickx = 7200000;
 	// iConomy
@@ -62,7 +66,6 @@ public class npcx extends JavaPlugin {
 	public BasicHumanNpcList npclist = new BasicHumanNpcList();
 	private Timer tick = new Timer();
 	private Timer longtick = new Timer();
-
 
 	public boolean checkchunks = false;
 	public void onNPCDeathWithLoot(BasicHumanNpc npc)
@@ -669,6 +672,8 @@ public class npcx extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
+		this.translate = new RealTranslationFile(this, language).load();
+
 		// TODO Auto-generated method stub
 		universe = new myUniverse(this);
 		universe.checkSetup();
