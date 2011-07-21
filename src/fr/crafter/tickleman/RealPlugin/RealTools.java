@@ -11,7 +11,7 @@ import org.bukkit.plugin.Plugin;
 public class RealTools
 {
 
-	//---------------------------------------------------------------------------- extractDefaultFile
+	// --------------------------------------------------------------------------- extractDefaultFile
 	public static void extractDefaultFile(Plugin plugin, String name)
 	{
 		File actual = new File(plugin.getDataFolder() + "/" + name);
@@ -29,11 +29,27 @@ public class RealTools
 					plugin.getServer().getLogger().log(Level.INFO, "Default file written: " + name);
 				} catch (Exception e) {
 					e.printStackTrace();
-					try { if (input != null) input.close(); } catch (Exception localException1) {}
-					try { if (output != null) output.close(); } catch (Exception localException2) {}
+					try {
+						if (input != null)
+							input.close();
+					} catch (Exception localException1) {
+					}
+					try {
+						if (output != null)
+							output.close();
+					} catch (Exception localException2) {
+					}
 				} finally {
-					try { if (input != null) input.close(); } catch (Exception localException3) {}
-					try { if (output != null) output.close(); } catch (Exception localException4) {}
+					try {
+						if (input != null)
+							input.close();
+					} catch (Exception localException3) {
+					}
+					try {
+						if (output != null)
+							output.close();
+					} catch (Exception localException4) {
+					}
 				}
 			}
 		}
@@ -46,8 +62,8 @@ public class RealTools
 	}
 
 	// ---------------------------------------------------------------------------------------- mkDir
-	// mkDir
-	public static void mkDir(String dirName) {
+	public static void mkDir(String dirName)
+	{
 		File dir = new File(dirName);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -55,8 +71,8 @@ public class RealTools
 	}
 
 	// ----------------------------------------------------------------------------------- renameFile
-	// renameFile
-	public static void renameFile(String fromFile, String toFile) {
+	public static void renameFile(String fromFile, String toFile)
+	{
 		File from = new File(fromFile);
 		File to = new File(toFile);
 		if (from.exists() && !to.exists()) {

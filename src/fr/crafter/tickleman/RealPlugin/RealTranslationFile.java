@@ -12,26 +12,26 @@ import org.bukkit.plugin.Plugin;
 public class RealTranslationFile
 {
 
-	private final String fileName;
+	private final String						fileName;
 
-	private HashMap<String, String> translations = new HashMap<String, String>();
+	private HashMap<String, String>	translations	= new HashMap<String, String>();
 
-	private final Plugin plugin;
+	private final Plugin						plugin;
 
-	//--------------------------------------------------------------------------- RealTranslationFile
+	// -------------------------------------------------------------------------- RealTranslationFile
 	public RealTranslationFile(final Plugin plugin)
 	{
 		this(plugin, "en");
 	}
-	
-	//--------------------------------------------------------------------------- RealTranslationFile
+
+	// -------------------------------------------------------------------------- RealTranslationFile
 	public RealTranslationFile(final Plugin plugin, final String fileName)
 	{
 		this.plugin = plugin;
 		this.fileName = fileName;
 	}
 
-	//------------------------------------------------------------------------------------------ load
+	// ----------------------------------------------------------------------------------------- load
 	public RealTranslationFile load()
 	{
 		translations.clear();
@@ -39,13 +39,15 @@ public class RealTranslationFile
 			"plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang",
 			"plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt"
 		);
-		if (!RealTools.fileExists("plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt")) {
+		if (!RealTools.fileExists(
+			"plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt"
+		)) {
 			RealTools.extractDefaultFile(plugin, fileName + ".lang.txt");
 		}
 		try {
-			BufferedReader reader = new BufferedReader(
-				new FileReader("plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt")
-			);
+			BufferedReader reader = new BufferedReader(new FileReader(
+				"plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt"
+			));
 			String buffer;
 			StringTokenizer line;
 			while ((buffer = reader.readLine()) != null) {
@@ -63,21 +65,29 @@ public class RealTranslationFile
 			reader.close();
 		} catch (Exception e) {
 			if (fileName.equals("en")) {
-				plugin.getServer().getLogger().log(Level.INFO,
-					"You can create plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt file"
-					+ " to change texts"
-				);
+				plugin
+					.getServer()
+					.getLogger()
+					.log(
+						Level.INFO,
+						"You can create plugins/" + plugin.getDescription().getName() + "/" + fileName
+							+ ".lang.txt file" + " to change texts"
+					);
 			} else {
-				plugin.getServer().getLogger().log(Level.WARNING,
-					"Needs plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt file"
-					+ " (check your language configuration)"
-				);
+				plugin
+					.getServer()
+					.getLogger()
+					.log(
+						Level.WARNING,
+						"Needs plugins/" + plugin.getDescription().getName() + "/" + fileName + ".lang.txt file"
+							+ " (check your language configuration)"
+					);
 			}
 		}
 		return this;
 	}
 
-	//-------------------------------------------------------------------------------------------- tr
+	// ------------------------------------------------------------------------------------------- tr
 	public String tr(String text)
 	{
 		String translated = translations.get(text);
