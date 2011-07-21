@@ -3,6 +3,7 @@ import net.gamerservices.npcx.*;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -152,7 +153,7 @@ public class BasicHumanNpc extends BasicNpc {
 			    		{
 			    			Debug(1,"player out of range, removing target");
 				    		p.target = null;
-				    		p.player.sendMessage("You have lost your target");
+				    		p.player.sendMessage(npcx.translate.tr("You have lost your target !"));
 			    		}
 				    	// remove target
 		    		}
@@ -795,7 +796,10 @@ public class BasicHumanNpc extends BasicNpc {
 	            	if (ent instanceof Player)
 	            	{
 	            		((Player) ent).getServer().broadcastMessage(((Player) ent).getName() + " was slaughtered by " + getName() + ".");
-	            		((Player) ent).sendMessage("You have been slaughtered by " + getName());
+	            		((Player) ent).sendMessage(
+	            			npcx.translate.tr("You have been slaughtered by {npcname}")
+	            			.replace("{npcname}", ChatColor.YELLOW + getName() + ChatColor.WHITE)
+	            		);
 	            		this.onKilled(ent);
 	            		
 	            		
@@ -808,7 +812,10 @@ public class BasicHumanNpc extends BasicNpc {
 	        						//System.out.println("npcx : player about to respawn, assigning them to the dead list");
 	        						player.dead = true;
 	        						player.respawned = false;
-	        						((Player) ent).sendMessage("You have been slaughtered by " + getName());
+	        						((Player) ent).sendMessage(
+	  	            			npcx.translate.tr("You have been slaughtered by {npcname}")
+	  	            			.replace("{npcname}", ChatColor.YELLOW + getName() + ChatColor.WHITE)
+	  	            		);
 	        						
 	        					}
 	        				

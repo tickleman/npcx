@@ -72,13 +72,17 @@ public class myNPC {
 	
 	
 	
-	private void say(myPlayer myplayer, String string) {
+	private void say(myPlayer myplayer, String string)
+	{
 		// TODO Auto-generated method stub
-		if (npc != null)
-		{
-			if (myplayer.player != null)
-			{
-				myplayer.player.sendMessage(npc.getName()+" says to you, '"+string+"'");
+		if (npc != null) {
+			if (myplayer.player != null) {
+				myplayer.player.sendMessage(
+					npcx.translate.tr("{npcname} says to you : \"{npcmessage}\"")
+					.replace("{npcname}", ChatColor.YELLOW + npc.getName() + ChatColor.WHITE)
+					.replace("{npcmessage}", string)
+					+ "."
+				);
 			}
 		}
 	}
@@ -90,6 +94,12 @@ public class myNPC {
 		int size = 0;
 		//myplayer.player.sendMessage("Parsing:" + message + ":" + Integer.toString(this.triggerwords.size()));
 		String message2=message+" ";
+
+		// tickleman's first pass
+		if (parseChatTickleman(myplayer, message)) {
+			return;
+		}
+		
 		for (String word : message2.split(" "))
 		{
 			// this needs to be removed			
@@ -111,7 +121,7 @@ public class myNPC {
 							// NPCATTACK variable
 							if (tw.response.toLowerCase().contains(npcattack.toLowerCase()))
 							{
-									say(myplayer,"You will regret that");
+									say(myplayer, npcx.translate.tr("You will regret that !"));
 									npc.setAggro(myplayer.player);
 									npc.setFollow(myplayer.player);
 									return;
@@ -121,7 +131,7 @@ public class myNPC {
 							// NPCSUMMONPLAYER
 							if (tw.response.toLowerCase().contains(summonplayer.toLowerCase()))
 							{
-									say(myplayer,"Come here");
+									say(myplayer, npcx.translate.tr("Come here"));
 									double x = npc.getBukkitEntity().getLocation().getX();
 									double y = npc.getBukkitEntity().getLocation().getY();
 									double z = npc.getBukkitEntity().getLocation().getZ();
@@ -140,7 +150,7 @@ public class myNPC {
 								
 								npc.getBukkitEntity().getWorld().spawnCreature(this.npc.getBukkitEntity().getLocation(),CreatureType.ZOMBIE);
 								
-								say(myplayer,"Look out");
+								say(myplayer, npcx.translate.tr("Look out"));
 								return;
 							}
 							
@@ -151,7 +161,7 @@ public class myNPC {
 								
 								npc.getBukkitEntity().getWorld().spawnCreature(this.npc.getBukkitEntity().getLocation(),CreatureType.WOLF);
 								
-								say(myplayer,"It's a wolf!");
+								say(myplayer, npcx.translate.tr("It's a wolf !"));
 								return;
 							}
 	
@@ -203,6 +213,19 @@ public class myNPC {
 		}
 	}
 
+	public boolean parseChatTickleman(myPlayer myplayer, String message)
+	{
+		// message is splited by keywords
+		String[] playerwords = message.replace(",", " ").replace(".", " ").replace("!", " ").split(" ");
+		/*
+		if (triggerwords != null) {
+			for (myTriggerword triggerword : triggerwords.values()) {
+			}
+		}
+		*/
+		return false;
+	}
+
 	private void parseChatGlobalCommands(myPlayer myplayer, String message) {
 		// TODO Auto-generated method stub
 		// Checks a message for any global commands
@@ -215,42 +238,40 @@ public class myNPC {
 		String arg3 = "";
 		
 		int ocount = 0;
-		String words2 = "";
+		//String words2 = "";
 		for (String word : message2.split(" "))
 		{
 			if (ocount == 0)
 			{
 				arg1 = word;
-				words2+="["+word+"]";
+				//words2+="["+word+"]";
 			}
 			if (ocount == 1)
 			{
 				arg2 = word;
-				words2+="["+word+"]";
+				//words2+="["+word+"]";
 
 			}
 			
 			if (ocount == 2)
 			{
 				arg3 = word;
-				words2+="["+word+"]";
+				//words2+="["+word+"]";
 
 			}
 			ocount++;
 		}
-		myplayer.player.sendMessage(words2);
-		
-		
+		//myplayer.player.sendMessage(words2); // BP this is not usefull for common users
 		
 		//
 		// Give command
 		// 
-		if (arg1.matches("give"))
+		if (arg1.matches("give") || arg1.matches(npcx.translate.tr("give")))
 		{
 			
 			if (arg2.matches("") || arg3.matches(""))
 			{
-				say(myplayer,"give [itemid] [amount]");
+				say(myplayer, "give [itemid] [amount]");
 				return;	
 			}
 			
@@ -372,7 +393,7 @@ public class myNPC {
 					// NPCATTACK variable
 					if (tw.response.toLowerCase().contains(npcattack.toLowerCase()))
 					{
-							say(p,"You will regret that");
+							say(p, npcx.translate.tr("You will regret that !"));
 							npc.setAggro(p.player);
 							npc.setFollow(p.player);
 							return;
@@ -428,7 +449,12 @@ public class myNPC {
 			if (count2 == 0)
 			{
 				// If i dont have a triggerword tell them thanks
-				p.player.sendMessage(npc.getName() + " says to you, 'Thanks! I'll find some use for that.'");
+				p.player.sendMessage(
+					npcx.translate.tr("{npcname} says to you : \"{npcmessage}\"")
+					.replace("{npcname}", ChatColor.YELLOW + npc.getName() + ChatColor.WHITE)
+					.replace("{npcmessage}", "Thanks ! I'll find some use for that")
+					+ "."
+				);
 			}
 		} else {
 			// Either a standard spawn or has no triggers!
@@ -439,21 +465,13 @@ public class myNPC {
 	public void onPlayerChat(myPlayer myplayer, String message, String category)
 	{
 		parseChatGlobalCommands(myplayer, message);
-		if (category.matches("merchant"))
-		{
+		if (category.matches("merchant")) {
 			parseMerchant(myplayer, message);
 			parseChat(myplayer,message);
-		
 		} else {
 			parseChat(myplayer,message);
 		}
-		
-		
-			
-				
 	}
-
-
 
 	public void parseMerchant(myPlayer player, String message) 
 	{
@@ -535,7 +553,11 @@ public class myNPC {
 						
 					}
 				}
-				player.player.sendMessage(ChatColor.LIGHT_PURPLE + "" + count + ChatColor.WHITE + " items in the Merchant.");
+				player.player.sendMessage(
+					npcx.translate.tr("{count} items in the Merchant")
+					.replace("{count}", ChatColor.LIGHT_PURPLE + "" + count + ChatColor.WHITE)
+					+ "."
+				);
 				
 				return;
 			}
@@ -1179,18 +1201,18 @@ public class myNPC {
 	    		{
 	    			// out of range to do this
 	    			
-	    			 p.sendMessage("You are too far away from this npc");
+	    			 p.sendMessage(npcx.translate.tr("You are too far away from this NPC") + ".");
 	                 player.target = null;
 	                 return;
 	    		}
 				
 				
 				
-				if (player.target != null)
-				{
-                    p.sendMessage("* Target cleared!");
-                    player.target = null;
-					
+				if (player.target != null) {
+					p.sendMessage(
+						npcx.translate.tr(npcx.translate.tr("* Target cleared !"))
+					);
+					player.target = null;
 				} else {
 					player.target = this.npc;
 					
@@ -1217,33 +1239,52 @@ public class myNPC {
     					
 					}
 					
-					if (this.parent.isAdmin(p))
-					{
-						p.sendMessage("NPCID ("+tNPCID+"):SG ("+tGPID+"):F ("+tFID+"):PG ("+tPGID+"):L ("+tLTID+"):M ("+tMID+")");
+					if (this.parent.isAdmin(p)) {
+						p.sendMessage(
+							"NPCID (" + tNPCID + ")"
+							+ " : SG (" + tGPID + ")"
+							+ " : F (" + tFID + ")"
+							+ " : PG (" + tPGID + ")"
+							+ " : L (" + tLTID + ")"
+							+ " : M (" + tMID + ")"
+						);
 					}
-                    p.sendMessage(
-                    		this.parent.translate.tr("* You are now chatting to: {npcname}. Right Click to cancel.")
-                    		.replace("{npcname}", ChatColor.YELLOW + name + ChatColor.WHITE)
-                    	);
-                    p.sendMessage("* Words in "+ChatColor.LIGHT_PURPLE+"[brackets]"+ChatColor.WHITE+" you should type! "+ChatColor.YELLOW+"Type a word to begin"+ChatColor.WHITE);
-                    if (player.target != null && player.target.parent != null && player.target.parent.category != null)
-                    {
-                    	// check what type (category) of npc this is
-                    	
-                    	if (player.target.parent.category.matches("merchant"))
-    					{
-                    		// merchant
-                            onPlayerChat(player, "Hello!","merchant");
-    					} else {
-    						// normal
-    						onPlayerChat(player, "Hello!","");
-    					}
-                    	
-                    } else {
-                    	onPlayerChat(player, "Hello!","");
-                    }
+					p.sendMessage(
+						npcx.translate.tr("* You are now chatting to: {npcname}")
+							.replace("{npcname}", ChatColor.YELLOW + name + ChatColor.WHITE)
+							+ "."
+						+ " " + npcx.translate.tr("Right Click to cancel") + "."
+					);
+					p.sendMessage(
+						npcx.translate.tr("* Words in {brackets} you should type")
+							.replace(
+								"{brackets}",
+								ChatColor.LIGHT_PURPLE
+								+ "[" + npcx.translate.tr("brackets") + "]"
+								+ ChatColor.WHITE
+							)
+							+ "!"
+					);
+					p.sendMessage(ChatColor.YELLOW + npcx.translate.tr("  Type a word to begin"));
+					if (
+						player.target != null
+						&& player.target.parent != null
+						&& player.target.parent.category != null
+					) {
+						// check what type (category) of npc this is
 
-                    
+						if (player.target.parent.category.matches("merchant")) {
+							// merchant
+							onPlayerChat(player, npcx.translate.tr("Hello") + "!", "merchant");
+						} else {
+							// normal
+							onPlayerChat(player, npcx.translate.tr("Hello") + "!", "");
+						}
+
+					} else {
+						onPlayerChat(player, npcx.translate.tr("Hello") + "!", "");
+					}
+
 				}
 				
 			} else {
@@ -1346,7 +1387,11 @@ public class myNPC {
 		if (count2 == 0)
 		{
 			// If i dont have a triggerword, dont respond
-			p.sendMessage(npc.getName() + " says to you, 'Hey! Watch where you are going!'");
+			p.sendMessage(
+				npcx.translate.tr("{npcname} says to you : \"{npcmessage}\"")
+				.replace("{npcname}", ChatColor.YELLOW + npc.getName() + ChatColor.WHITE)
+				.replace("{npcmessage}", "Hey ! Watch where you are going !")
+			);
 		}
 		
 		this.npc.forceMove(this.npc.getFaceLocationFromMe(p.getLocation()));
@@ -1386,13 +1431,18 @@ public class myNPC {
 			if (count2 == 0)
 			{
 				// If i dont have a triggerword, respond with
-				((Player) p).sendMessage(npc.getName() + " says to you, 'I will be avenged for this!'");
+				((Player) p).sendMessage(
+					npcx.translate.tr("{npcname} says to you : \"{npcmessage}\"")
+					.replace("{npcname}", ChatColor.YELLOW + npc.getName() + ChatColor.WHITE)
+					.replace("{npcmessage}", npcx.translate.tr("I will be avenged for this !"))
+				);
 			}
-			
-			((Player) p).sendMessage("You have slain " + this.name + "!");
-			
-			
-			
+
+			((Player) p).sendMessage(
+				npcx.translate.tr("You have slain {npcname} !")
+				.replace("{npcname}", ChatColor.YELLOW + this.name + ChatColor.WHITE)
+			);
+
 			if (this.faction != null)
 			{
 				try
@@ -1447,10 +1497,12 @@ public class myNPC {
 			if (count2 == 0)
 			{
 				// If i dont have a triggerword, respond with
-				((Player) ent).sendMessage(npc.getName() + " says to you, 'Not as strong as I thought'");
+				((Player) ent).sendMessage(
+					npcx.translate.tr("{npcname} says to you : \"{npcmessage}\"")
+					.replace("{npcname}", ChatColor.YELLOW + npc.getName() + ChatColor.WHITE)
+					.replace("{npcmessage}", npcx.translate.tr("Not as strong as I thought"))
+				);
 			}
-			
-			
 		}
 	}
 

@@ -54,8 +54,8 @@ public class RealTranslationFile
 				if ((buffer.length() > 0) && (buffer.charAt(0) != '#')) {
 					line = new StringTokenizer(buffer, "=");
 					if (line.countTokens() >= 2) {
-						String key = line.nextToken().trim();
-						String value = line.nextToken().trim();
+						String key = line.nextToken();
+						String value = line.nextToken();
 						if (!key.equals("") && !value.equals("")) {
 							translations.put(key, value);
 						}

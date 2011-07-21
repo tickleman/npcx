@@ -437,7 +437,11 @@ public class npcxPListener extends PlayerListener {
 				{
 					
 					//System.out.println("npcx : player chat event ("+ player.player.getName()+")");
-					player.player.sendMessage("You say to " + player.target.getName() +", '" + event.getMessage() + "'");
+					player.player.sendMessage(
+						npcx.translate.tr("You say to {npcname} : \"{playermessage}\"")
+						.replace("{npcname}", ChatColor.YELLOW + player.target.getName() + ChatColor.WHITE)
+						.replace("{playermessage}", event.getMessage())
+					);
 
 					if (player.target.parent != null)
 					{
@@ -462,7 +466,9 @@ public class npcxPListener extends PlayerListener {
 							player.target.parent.onPlayerChat(player, event.getMessage(),"");
 						}
 					} else {
-						player.player.sendMessage("You cannot talk to temporary spawns");
+						player.player.sendMessage(
+							npcx.translate.tr("You cannot talk to temporary spawns") + " !"
+						);
 					}
 					event.setCancelled(true);
 				}

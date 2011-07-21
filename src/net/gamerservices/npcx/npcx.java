@@ -40,7 +40,7 @@ import java.sql.*;
 public class npcx extends JavaPlugin {
 
 	private static final Logger logger = Logger.getLogger("Minecraft");
-	public RealTranslationFile translate;
+	public static RealTranslationFile translate;
 	
 	private npcxEListener mEntityListener;
 	private npcxPListener mPlayerListener;
@@ -672,7 +672,7 @@ public class npcx extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		this.translate = new RealTranslationFile(this, language).load();
+		npcx.translate = new RealTranslationFile(this, language).load();
 
 		// TODO Auto-generated method stub
 		universe = new myUniverse(this);
