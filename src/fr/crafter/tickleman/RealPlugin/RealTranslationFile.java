@@ -6,26 +6,26 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 //############################################################################# RealTranslationFile
 public class RealTranslationFile
 {
 
-	private final String						fileName;
+	private final String fileName;
 
-	private HashMap<String, String>	translations	= new HashMap<String, String>();
+	private HashMap<String, String> translations	= new HashMap<String, String>();
 
-	private final Plugin						plugin;
+	private final JavaPlugin plugin;
 
 	// -------------------------------------------------------------------------- RealTranslationFile
-	public RealTranslationFile(final Plugin plugin)
+	public RealTranslationFile(final JavaPlugin plugin)
 	{
 		this(plugin, "en");
 	}
 
 	// -------------------------------------------------------------------------- RealTranslationFile
-	public RealTranslationFile(final Plugin plugin, final String fileName)
+	public RealTranslationFile(final JavaPlugin plugin, final String fileName)
 	{
 		this.plugin = plugin;
 		this.fileName = fileName;

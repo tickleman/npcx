@@ -95,10 +95,8 @@ public class myNPC {
 		//myplayer.player.sendMessage("Parsing:" + message + ":" + Integer.toString(this.triggerwords.size()));
 		String message2=message+" ";
 
-		// tickleman's first pass
-		if (parseChatTickleman(myplayer, message)) {
-			return;
-		}
+		// tickleman's first pass : get the best triggerword combination
+		myTriggerword bestTriggerWord = parseChatTickleman(myplayer, message);
 		
 		for (String word : message2.split(" "))
 		{
@@ -110,8 +108,10 @@ public class myNPC {
 					for (myTriggerword tw : triggerwords.values())
 					{
 						//myplayer.player.sendMessage("Test:" + word + ":"+ tw.word);
-						if (word.toLowerCase().contains(tw.word.toLowerCase()))
-						{
+						if (
+							(bestTriggerWord == null) && word.toLowerCase().contains(tw.word.toLowerCase())
+							|| (tw == bestTriggerWord)
+						) {
 							String npcattack = "NPCATTACK";
 							String summonplayer = "NPCSUMMONPLAYER";
 							String npcsummonzombie = "NPCSUMMONZOMBIE";
@@ -170,9 +170,8 @@ public class myNPC {
 							say(myplayer,send);
 							count++;
 							return;
-		
+			
 						}
-						
 						
 						size++;
 					}
@@ -213,17 +212,35 @@ public class myNPC {
 		}
 	}
 
-	public boolean parseChatTickleman(myPlayer myplayer, String message)
+	public myTriggerword parseChatTickleman(myPlayer myplayer, String message)
 	{
+		myTriggerword bestTriggerWord = null;
+		int bestScore = 0;
 		// message is splited by keywords
-		String[] playerwords = message.replace(",", " ").replace(".", " ").replace("!", " ").split(" ");
-		/*
+		String[] playerwords = message.toLowerCase()
+			.replace(",", " ").replace(".", " ").replace("!", " ")
+			.split(" ");
 		if (triggerwords != null) {
 			for (myTriggerword triggerword : triggerwords.values()) {
+				// which trigger word has the best score ?
+				int score = 0;
+				for (String word : triggerword.word.toLowerCase().split(" ")) {
+					for (String playerword : playerwords) {
+						if (playerword.equals(word)) {
+							score ++;
+						}
+					}
+				}
+				if ((score == triggerword.word.split(" ").length) && (score > bestScore)) {
+					bestScore = score;
+					bestTriggerWord = triggerword;
+				}
 			}
 		}
-		*/
-		return false;
+		if (bestTriggerWord != null) {
+			System.out.println("Best score for " + bestTriggerWord.word + " score " + bestScore + " answer is " + bestTriggerWord.response);
+		}
+		return bestTriggerWord;
 	}
 
 	private void parseChatGlobalCommands(myPlayer myplayer, String message) {

@@ -5,14 +5,14 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
 
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 //####################################################################################### RealTools
 public class RealTools
 {
 
 	// --------------------------------------------------------------------------- extractDefaultFile
-	public static void extractDefaultFile(Plugin plugin, String name)
+	public static void extractDefaultFile(JavaPlugin plugin, String name)
 	{
 		File actual = new File(plugin.getDataFolder() + "/" + name);
 		if (!actual.exists()) {
